@@ -15,6 +15,7 @@ app.use(morgan("dev"))
 
 
 
+
 app.use(routes);
 
 db.sequelize.sync().then(() => {

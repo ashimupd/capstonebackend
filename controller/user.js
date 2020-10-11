@@ -69,18 +69,19 @@ module.exports = {
                     res.status(200).json({
                         success: true,
                         message: 'Login successfull',
-                        token: token
+                        token: token,
+                        data: userData
                     })
                 }
                 else {
-                    res.status(400).json({
+                    res.status(200).json({
                         success: false,
                         message: 'Invalid creditianls',
                     })
                 }
             }
             else {
-                res.status(400).json({
+                res.status(200).json({
                     success: false,
                     message: 'User doesnot exist',
                 })
@@ -92,13 +93,13 @@ module.exports = {
         }
     },
 
-    async logout(req, res){
+    async logout(req, res) {
         const token = req.headers.authorization.split(" ")[1];
-       
-        try{
-           res.send(jwt.destroy(token))
+
+        try {
+            res.send(jwt.destroy(token))
         }
-        catch(e){
+        catch (e) {
             res.status(500).send(e)
         }
     }
