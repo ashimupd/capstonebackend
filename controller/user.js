@@ -27,6 +27,7 @@ module.exports = {
     },
 
     async signup(req, res) {
+        console.log(req.body)
         try {
             let userExist = await user.findOne({ where: { email: req.body.email } });
             if (userExist) {
@@ -44,12 +45,12 @@ module.exports = {
                     "phone": req.body.phone,
                     "email": req.body.email,
                     "district": req.body.district,
-                    "postalcode": req.body.postalcode,
+                    "zip": req.body.zip,
                     "password": hashedPassword
                 }).then(user => {
                     res.status(200).json({
                         success: true,
-                        message: 'New account created successfully'
+                        message: 'New account created successfully, continue to login'
                     })
                 });
             }

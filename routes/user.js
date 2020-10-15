@@ -4,7 +4,7 @@ const auth= require('../auth/auth')
 
 
 app.get('/', auth,  userController.getUsers);
-app.post('/signup',   userController.signup);
+app.post('/',   userController.signup);
 app.post('/login',   userController.login);
 app.post('/logout',   userController.logout);
 
