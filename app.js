@@ -13,10 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
 app.use(morgan("dev"))
 
-
-
 app.use(routes);
+app.use("/upload/images", express.static("upload/images"));
 
 db.sequelize.sync().then(() => {
-    app.listen(8080);
+    app.listen(2020);
 })

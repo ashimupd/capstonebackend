@@ -27,11 +27,12 @@ var upload = multer({
     storage: storage,
     fileFilter: imageFileFilter,
     limits: {
-        fileSize: 10000000
+        fileSize: 100000000
     }
 });
 
-app.post('/image', upload.single('image'), auth, function (req, res) {
+app.post('/image', upload.single('image'), function (req, res) {
+    console.log("imagename "+ImagefileName)
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
         image: ImagefileName

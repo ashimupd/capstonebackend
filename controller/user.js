@@ -27,7 +27,6 @@ module.exports = {
     },
 
     async signup(req, res) {
-        console.log(req.body)
         try {
             let userExist = await user.findOne({ where: { email: req.body.email } });
             if (userExist) {
@@ -44,7 +43,7 @@ module.exports = {
                     "lname": req.body.lname,
                     "phone": req.body.phone,
                     "email": req.body.email,
-                    "district": req.body.district,
+                    "state": req.body.state,
                     "zip": req.body.zip,
                     "password": hashedPassword
                 }).then(user => {
@@ -57,6 +56,7 @@ module.exports = {
 
         }
         catch (e) {
+            console.log(e)
             res.status(500).send(e)
         }
     },
@@ -90,6 +90,7 @@ module.exports = {
 
         }
         catch (e) {
+            console.log(e)
             res.status(500).send(e)
         }
     },

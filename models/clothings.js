@@ -1,37 +1,36 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    fname: {
+  const Clothings = sequelize.define('Clothings', {
+    name: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    lname: {
+    type: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    phone: {
+    size: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    email: {
+    warrenty: {
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
+    price: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    state: {
+    description: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    zip: {
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    password: {
-      type:DataTypes.STRING,
-      allowNull:false
+    image: {
+      type:DataTypes.STRING
     },
   }, {});
-  User.associate = function(models) {
+  Clothings.associate = function(models) {
     // associations can be defined here
   };
-  return User;
+  return Clothings;
 };
