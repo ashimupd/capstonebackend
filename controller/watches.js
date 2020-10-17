@@ -1,12 +1,12 @@
-const Clothings = require('../models').Clothings;
+const Watches = require('../models').Watches;
 const user = require('../models').User;
 const fs = require('fs');
 
 module.exports = {
 
-    async addClothings(req, res) {
+    async addWatches(req, res) {
         try {
-            await Clothings.create(req.body).then(Clothings => {
+            await Watches.create(req.body).then(Watches => {
                 res.status(200).json({
                     success: true,
                     message: 'New item added successfully'
@@ -21,14 +21,14 @@ module.exports = {
         }
     },
 
-    async getClothingsData(req, res) {
+    async getWatchesData(req, res) {
         try {
-            let ClothingsCollection = await Clothings.findAll();
-            if (ClothingsCollection && ClothingsCollection.length > 0) {
+            let WatchesCollection = await Watches.findAll();
+            if (WatchesCollection && WatchesCollection.length > 0) {
                 res.status(200).json({
                     success: true,
-                    message: 'Clothings List',
-                    data: ClothingsCollection
+                    message: 'Watches List',
+                    data: WatchesCollection
                 })
             }
 
@@ -44,31 +44,30 @@ module.exports = {
         }
     },
 
-    async updateClothingsData(req, res) {
+    async updateWatchesData(req, res) {
 
-        console.log(req.body)
 
         try {
-            let ClothingsCollection = await Clothings.findOne({ where: { id: req.body.id } });
-            if (ClothingsCollection) {
+            let WatchesCollection = await Watches.findOne({ where: { id: req.body.id } });
+            if (WatchesCollection) {
 
-                if (ClothingsCollection.image === req.body.image) {
-                    // do nothing
+                if (WatchesCollection.image === req.body.image) {
+                    // Do nothing
                 }
+
                 else {
-                    fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
+                    fs.unlink('./upload/images/' + WatchesCollection.image, (err) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            console.log('Image ' + ClothingsCollection.image + 'deleted')
+                            console.log('Image ' + WatchesCollection.image + 'deleted')
                         }
                     })
                 }
 
 
-
-                Clothings.update(req.body, { where: { id: req.body.id } }).then(Clothings => {
+                Watches.update(req.body, { where: { id: req.body.id } }).then(Watches => {
                     res.status(200).json({
                         success: true,
                         message: req.body.name + ' updated successfully',
@@ -88,22 +87,22 @@ module.exports = {
         }
     },
 
-    async deleteClothindData(req, res) {
+    async deleteWatchesData(req, res) {
 
         try {
-            let ClothingsCollection = await Clothings.findOne({ where: { id: req.params.id } });
-            if (ClothingsCollection) {
+            let WatchesCollection = await Watches.findOne({ where: { id: req.params.id } });
+            if (WatchesCollection) {
 
-                fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
+                fs.unlink('./upload/images/' + WatchesCollection.image, (err) => {
                     if (err) {
                         console.log(err)
                     }
                     else {
-                        console.log('Image ' + ClothingsCollection.image + 'deleted')
+                        console.log('Image ' + WatchesCollection.image + 'deleted')
                     }
                 })
 
-                Clothings.destroy({ where: { id: req.params.id } }).then(Clothings => {
+                Watches.destroy({ where: { id: req.params.id } }).then(Watches => {
                     res.status(200).json({
                         success: true,
                         message: 'Deleted successfully',
