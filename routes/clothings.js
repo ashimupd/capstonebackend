@@ -6,7 +6,7 @@ const auth= require('../auth/auth')
 app.post('/', auth, clothingsController.addClothings);
 app.get('/', auth, clothingsController.getClothingsData);
 app.put('/', auth, clothingsController.updateClothingsData);
-app.delete('/:id', auth, clothingsController.deleteClothindData);
+app.delete('/:id', auth, clothingsController.deleteClothingsData);
 
 
 

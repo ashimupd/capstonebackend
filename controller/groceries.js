@@ -1,12 +1,12 @@
-const Clothings = require('../models').Clothings;
+const Groceries = require('../models').Groceries;
 const user = require('../models').User;
 const fs = require('fs');
 
 module.exports = {
 
-    async addClothings(req, res) {
+    async addGroceries(req, res) {
         try {
-            await Clothings.create(req.body).then(Clothings => {
+            await Groceries.create(req.body).then(Groceries => {
                 res.status(200).json({
                     success: true,
                     message: 'New item added successfully'
@@ -21,14 +21,14 @@ module.exports = {
         }
     },
 
-    async getClothingsData(req, res) {
+    async getGroceriesData(req, res) {
         try {
-            let ClothingsCollection = await Clothings.findAll();
-            if (ClothingsCollection && ClothingsCollection.length > 0) {
+            let GroceriesCollection = await Groceries.findAll();
+            if (GroceriesCollection && GroceriesCollection.length > 0) {
                 res.status(200).json({
                     success: true,
-                    message: 'Clothings List',
-                    data: ClothingsCollection
+                    message: 'Groceries List',
+                    data: GroceriesCollection
                 })
             }
 
@@ -40,35 +40,34 @@ module.exports = {
             }
         }
         catch (e) {
+            console.log({ e })
             res.status(500).send(e)
         }
     },
 
-    async updateClothingsData(req, res) {
-
-        console.log(req.body)
+    async updateGroceriesData(req, res) {
 
         try {
-            let ClothingsCollection = await Clothings.findOne({ where: { id: req.body.id } });
-            if (ClothingsCollection) {
+            let GroceriesCollection = await Groceries.findOne({ where: { id: req.body.id } });
+            if (GroceriesCollection) {
 
-                if (ClothingsCollection.image === req.body.image) {
-                    // do nothing
+                if (GroceriesCollection.image === req.body.image) {
+                    // Do nothing
                 }
                 else {
-                    fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
+                    fs.unlink('./upload/images/' + GroceriesCollection.image, (err) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            console.log('Image ' + ClothingsCollection.image + 'deleted')
+                            console.log('Image ' + GroceriesCollection.image + 'deleted')
                         }
                     })
                 }
 
 
 
-                Clothings.update(req.body, { where: { id: req.body.id } }).then(Clothings => {
+                Groceries.update(req.body, { where: { id: req.body.id } }).then(Groceries => {
                     res.status(200).json({
                         success: true,
                         message: req.body.name + ' updated successfully',
@@ -88,22 +87,30 @@ module.exports = {
         }
     },
 
-    async deleteClothingsData(req, res) {
+    async deleteGroceriesData(req, res) {
 
         try {
-            let ClothingsCollection = await Clothings.findOne({ where: { id: req.params.id } });
-            if (ClothingsCollection) {
+            let GroceriesCollection = await Groceries.findOne({ where: { id: req.params.id } });
+            if (GroceriesCollection) {
 
-                fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + ClothingsCollection.image + 'deleted')
-                    }
-                })
+                if (GroceriesCollection.image === req.body.image) {
+                    // do nothing 
+                }
 
-                Clothings.destroy({ where: { id: req.params.id } }).then(Clothings => {
+                else {
+                    fs.unlink('./upload/images/' + GroceriesCollection.image, (err) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        else {
+                            console.log('Image ' + GroceriesCollection.image + 'deleted')
+                        }
+                    })
+                }
+
+
+
+                Groceries.destroy({ where: { id: req.params.id } }).then(Groceries => {
                     res.status(200).json({
                         success: true,
                         message: 'Deleted successfully',

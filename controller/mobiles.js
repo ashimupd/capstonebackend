@@ -1,12 +1,12 @@
-const Clothings = require('../models').Clothings;
+const Mobiles = require('../models').Mobiles;
 const user = require('../models').User;
 const fs = require('fs');
 
 module.exports = {
 
-    async addClothings(req, res) {
+    async addMobiles(req, res) {
         try {
-            await Clothings.create(req.body).then(Clothings => {
+            await Mobiles.create(req.body).then(Mobiles => {
                 res.status(200).json({
                     success: true,
                     message: 'New item added successfully'
@@ -21,14 +21,14 @@ module.exports = {
         }
     },
 
-    async getClothingsData(req, res) {
+    async getMobilesData(req, res) {
         try {
-            let ClothingsCollection = await Clothings.findAll();
-            if (ClothingsCollection && ClothingsCollection.length > 0) {
+            let MobilesCollection = await Mobiles.findAll();
+            if (MobilesCollection && MobilesCollection.length > 0) {
                 res.status(200).json({
                     success: true,
-                    message: 'Clothings List',
-                    data: ClothingsCollection
+                    message: 'Mobiles List',
+                    data: MobilesCollection
                 })
             }
 
@@ -44,31 +44,31 @@ module.exports = {
         }
     },
 
-    async updateClothingsData(req, res) {
+    async updateMobilesData(req, res) {
 
         console.log(req.body)
 
         try {
-            let ClothingsCollection = await Clothings.findOne({ where: { id: req.body.id } });
-            if (ClothingsCollection) {
+            let MobilesCollection = await Mobiles.findOne({ where: { id: req.body.id } });
+            if (MobilesCollection) {
 
-                if (ClothingsCollection.image === req.body.image) {
+                if (MobilesCollection.image === req.body.image) {
                     // do nothing
                 }
                 else {
-                    fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
+                    fs.unlink('./upload/images/' + MobilesCollection.image, (err) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            console.log('Image ' + ClothingsCollection.image + 'deleted')
+                            console.log('Image ' + MobilesCollection.image + 'deleted')
                         }
                     })
                 }
 
 
 
-                Clothings.update(req.body, { where: { id: req.body.id } }).then(Clothings => {
+                Mobiles.update(req.body, { where: { id: req.body.id } }).then(Mobiles => {
                     res.status(200).json({
                         success: true,
                         message: req.body.name + ' updated successfully',
@@ -88,22 +88,22 @@ module.exports = {
         }
     },
 
-    async deleteClothingsData(req, res) {
+    async deleteMobilesData(req, res) {
 
         try {
-            let ClothingsCollection = await Clothings.findOne({ where: { id: req.params.id } });
-            if (ClothingsCollection) {
+            let MobilesCollection = await Mobiles.findOne({ where: { id: req.params.id } });
+            if (MobilesCollection) {
 
-                fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
+                fs.unlink('./upload/images/' + MobilesCollection.image, (err) => {
                     if (err) {
                         console.log(err)
                     }
                     else {
-                        console.log('Image ' + ClothingsCollection.image + 'deleted')
+                        console.log('Image ' + MobilesCollection.image + 'deleted')
                     }
                 })
 
-                Clothings.destroy({ where: { id: req.params.id } }).then(Clothings => {
+                Mobiles.destroy({ where: { id: req.params.id } }).then(Mobiles => {
                     res.status(200).json({
                         success: true,
                         message: 'Deleted successfully',
