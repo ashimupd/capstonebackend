@@ -45,7 +45,8 @@ module.exports = {
                     "email": req.body.email,
                     "state": req.body.state,
                     "zip": req.body.zip,
-                    "password": hashedPassword
+                    "password": hashedPassword,
+                    "usertype": 'user',
                 }).then(user => {
                     res.status(200).json({
                         success: true,

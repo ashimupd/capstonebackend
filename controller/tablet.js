@@ -1,12 +1,12 @@
-const Shoes = require('../models').Shoes;
+const Tablet = require('../models').Tablet;
 const user = require('../models').User;
 const fs = require('fs');
 
 module.exports = {
 
-    async addShoes(req, res) {
+    async addTablet(req, res) {
         try {
-            await Shoes.create(req.body).then(Shoes => {
+            await Tablet.create(req.body).then(Tablet => {
                 res.status(200).json({
                     success: true,
                     message: 'New item added successfully'
@@ -21,14 +21,14 @@ module.exports = {
         }
     },
 
-    async getShoesData(req, res) {
+    async getTabletData(req, res) {
         try {
-            let ShoesCollection = await Shoes.findAll();
-            if (ShoesCollection && ShoesCollection.length > 0) {
+            let TabletCollection = await Tablet.findAll();
+            if (TabletCollection && TabletCollection.length > 0) {
                 res.status(200).json({
                     success: true,
-                    message: 'Shoes List',
-                    data: ShoesCollection
+                    message: 'Tablet List',
+                    data: TabletCollection
                 })
             }
 
@@ -44,29 +44,31 @@ module.exports = {
         }
     },
 
-    async updateShoesData(req, res) {
+    async updateTabletData(req, res) {
 
+        console.log(req.body)
 
         try {
-            let ShoesCollection = await Shoes.findOne({ where: { id: req.body.id } });
-            if (ShoesCollection) {
+            let TabletCollection = await Tablet.findOne({ where: { id: req.body.id } });
+            if (TabletCollection) {
 
-                if (ShoesCollection.image === req.body.image) {
-                    // do nothing 
+                if (TabletCollection.image === req.body.image) {
+                    // do nothing
                 }
-
                 else {
-                    fs.unlink('./upload/images/' + ShoesCollection.image, (err) => {
+                    fs.unlink('./upload/images/' + TabletCollection.image, (err) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            console.log('Image ' + ShoesCollection.image + 'deleted')
+                            console.log('Image ' + TabletCollection.image + 'deleted')
                         }
                     })
                 }
-                
-                Shoes.update(req.body, { where: { id: req.body.id } }).then(Shoes => {
+
+
+
+                Tablet.update(req.body, { where: { id: req.body.id } }).then(Tablet => {
                     res.status(200).json({
                         success: true,
                         message: req.body.name + ' updated successfully',
@@ -86,30 +88,22 @@ module.exports = {
         }
     },
 
-    async deleteShoesData(req, res) {
+    async deleteTabletData(req, res) {
 
         try {
-            let ShoesCollection = await Shoes.findOne({ where: { id: req.params.id } });
-            if (ShoesCollection) {
+            let TabletCollection = await Tablet.findOne({ where: { id: req.params.id } });
+            if (TabletCollection) {
 
-                if (ShoesCollection.image === req.body.image) {
-                    // do nothing 
-                }
+                fs.unlink('./upload/images/' + TabletCollection.image, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        console.log('Image ' + TabletCollection.image + 'deleted')
+                    }
+                })
 
-                else {
-                    fs.unlink('./upload/images/' + ShoesCollection.image, (err) => {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            console.log('Image ' + ShoesCollection.image + 'deleted')
-                        }
-                    })
-                }
-
-
-
-                Shoes.destroy({ where: { id: req.params.id } }).then(Shoes => {
+                Tablet.destroy({ where: { id: req.params.id } }).then(Tablet => {
                     res.status(200).json({
                         success: true,
                         message: 'Deleted successfully',

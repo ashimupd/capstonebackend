@@ -1,42 +1,56 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    fname: {
+  const Tablet = sequelize.define('Tablet', {
+    name: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    lname: {
+    brand: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    phone: {
+    model: {
       type:DataTypes.STRING,
       allowNull:false
     },
-    email: {
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    state: {
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    zip: {
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    password: {
+    ram: {
       type:DataTypes.STRING,
       allowNull:false
     },
 
-    usertype:{
+    storage: {
       type:DataTypes.STRING,
-      allowNull:false,
-    }
+      allowNull:false
+    },
+
+    resolution: {
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+
+    screensize: {
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+
+    warrenty: {
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
+    price: {
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    description: {
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    image: {
+      type:DataTypes.STRING
+    },
   }, {});
-  User.associate = function(models) {
+  Tablet.associate = function(models) {
     // associations can be defined here
   };
-  return User;
+  return Tablet;
 };

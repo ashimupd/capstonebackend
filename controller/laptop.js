@@ -1,12 +1,11 @@
-const Shoes = require('../models').Shoes;
-const user = require('../models').User;
+const Laptop = require('../models').Laptop;
 const fs = require('fs');
 
 module.exports = {
 
-    async addShoes(req, res) {
+    async addLaptop(req, res) {
         try {
-            await Shoes.create(req.body).then(Shoes => {
+            await Laptop.create(req.body).then(Laptop => {
                 res.status(200).json({
                     success: true,
                     message: 'New item added successfully'
@@ -21,14 +20,14 @@ module.exports = {
         }
     },
 
-    async getShoesData(req, res) {
+    async getLaptopData(req, res) {
         try {
-            let ShoesCollection = await Shoes.findAll();
-            if (ShoesCollection && ShoesCollection.length > 0) {
+            let LaptopCollection = await Laptop.findAll();
+            if (LaptopCollection && LaptopCollection.length > 0) {
                 res.status(200).json({
                     success: true,
-                    message: 'Shoes List',
-                    data: ShoesCollection
+                    message: 'Laptop List',
+                    data: LaptopCollection
                 })
             }
 
@@ -40,33 +39,36 @@ module.exports = {
             }
         }
         catch (e) {
+            console.log({e})
             res.status(500).send(e)
         }
     },
 
-    async updateShoesData(req, res) {
+    async updateLaptopData(req, res) {
 
+        console.log(req.body)
 
         try {
-            let ShoesCollection = await Shoes.findOne({ where: { id: req.body.id } });
-            if (ShoesCollection) {
+            let LaptopCollection = await Laptop.findOne({ where: { id: req.body.id } });
+            if (LaptopCollection) {
 
-                if (ShoesCollection.image === req.body.image) {
-                    // do nothing 
+                if (LaptopCollection.image === req.body.image) {
+                    // do nothing
                 }
-
                 else {
-                    fs.unlink('./upload/images/' + ShoesCollection.image, (err) => {
+                    fs.unlink('./upload/images/' + LaptopCollection.image, (err) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            console.log('Image ' + ShoesCollection.image + 'deleted')
+                            console.log('Image ' + LaptopCollection.image + 'deleted')
                         }
                     })
                 }
-                
-                Shoes.update(req.body, { where: { id: req.body.id } }).then(Shoes => {
+
+
+
+                Laptop.update(req.body, { where: { id: req.body.id } }).then(Laptop => {
                     res.status(200).json({
                         success: true,
                         message: req.body.name + ' updated successfully',
@@ -86,30 +88,22 @@ module.exports = {
         }
     },
 
-    async deleteShoesData(req, res) {
+    async deleteLaptopData(req, res) {
 
         try {
-            let ShoesCollection = await Shoes.findOne({ where: { id: req.params.id } });
-            if (ShoesCollection) {
+            let LaptopCollection = await Laptop.findOne({ where: { id: req.params.id } });
+            if (LaptopCollection) {
 
-                if (ShoesCollection.image === req.body.image) {
-                    // do nothing 
-                }
+                fs.unlink('./upload/images/' + LaptopCollection.image, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        console.log('Image ' + LaptopCollection.image + 'deleted')
+                    }
+                })
 
-                else {
-                    fs.unlink('./upload/images/' + ShoesCollection.image, (err) => {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            console.log('Image ' + ShoesCollection.image + 'deleted')
-                        }
-                    })
-                }
-
-
-
-                Shoes.destroy({ where: { id: req.params.id } }).then(Shoes => {
+                Laptop.destroy({ where: { id: req.params.id } }).then(Laptop => {
                     res.status(200).json({
                         success: true,
                         message: 'Deleted successfully',

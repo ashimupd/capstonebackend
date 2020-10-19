@@ -46,7 +46,7 @@ module.exports = {
 
     async updateMobilesData(req, res) {
 
-        console.log(req.body)
+     
 
         try {
             let MobilesCollection = await Mobiles.findOne({ where: { id: req.body.id } });

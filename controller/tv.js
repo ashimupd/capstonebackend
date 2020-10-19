@@ -1,12 +1,12 @@
-const Shoes = require('../models').Shoes;
+const TV = require('../models').TV;
 const user = require('../models').User;
 const fs = require('fs');
 
 module.exports = {
 
-    async addShoes(req, res) {
+    async addTV(req, res) {
         try {
-            await Shoes.create(req.body).then(Shoes => {
+            await TV.create(req.body).then(TV => {
                 res.status(200).json({
                     success: true,
                     message: 'New item added successfully'
@@ -21,14 +21,14 @@ module.exports = {
         }
     },
 
-    async getShoesData(req, res) {
+    async getTVData(req, res) {
         try {
-            let ShoesCollection = await Shoes.findAll();
-            if (ShoesCollection && ShoesCollection.length > 0) {
+            let TVCollection = await TV.findAll();
+            if (TVCollection && TVCollection.length > 0) {
                 res.status(200).json({
                     success: true,
-                    message: 'Shoes List',
-                    data: ShoesCollection
+                    message: 'TV List',
+                    data: TVCollection
                 })
             }
 
@@ -44,29 +44,31 @@ module.exports = {
         }
     },
 
-    async updateShoesData(req, res) {
+    async updateTVData(req, res) {
 
+        console.log(req.body)
 
         try {
-            let ShoesCollection = await Shoes.findOne({ where: { id: req.body.id } });
-            if (ShoesCollection) {
+            let TVCollection = await TV.findOne({ where: { id: req.body.id } });
+            if (TVCollection) {
 
-                if (ShoesCollection.image === req.body.image) {
-                    // do nothing 
+                if (TVCollection.image === req.body.image) {
+                    // do nothing
                 }
-
                 else {
-                    fs.unlink('./upload/images/' + ShoesCollection.image, (err) => {
+                    fs.unlink('./upload/images/' + TVCollection.image, (err) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            console.log('Image ' + ShoesCollection.image + 'deleted')
+                            console.log('Image ' + TVCollection.image + 'deleted')
                         }
                     })
                 }
-                
-                Shoes.update(req.body, { where: { id: req.body.id } }).then(Shoes => {
+
+
+
+                TV.update(req.body, { where: { id: req.body.id } }).then(TV => {
                     res.status(200).json({
                         success: true,
                         message: req.body.name + ' updated successfully',
@@ -86,30 +88,22 @@ module.exports = {
         }
     },
 
-    async deleteShoesData(req, res) {
+    async deleteTVData(req, res) {
 
         try {
-            let ShoesCollection = await Shoes.findOne({ where: { id: req.params.id } });
-            if (ShoesCollection) {
+            let TVCollection = await TV.findOne({ where: { id: req.params.id } });
+            if (TVCollection) {
 
-                if (ShoesCollection.image === req.body.image) {
-                    // do nothing 
-                }
+                fs.unlink('./upload/images/' + TVCollection.image, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        console.log('Image ' + TVCollection.image + 'deleted')
+                    }
+                })
 
-                else {
-                    fs.unlink('./upload/images/' + ShoesCollection.image, (err) => {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            console.log('Image ' + ShoesCollection.image + 'deleted')
-                        }
-                    })
-                }
-
-
-
-                Shoes.destroy({ where: { id: req.params.id } }).then(Shoes => {
+                TV.destroy({ where: { id: req.params.id } }).then(TV => {
                     res.status(200).json({
                         success: true,
                         message: 'Deleted successfully',
