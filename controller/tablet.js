@@ -44,6 +44,30 @@ module.exports = {
         }
     },
 
+    async getTabletDatabyId(req, res) {
+        try {
+            let TabletCollection = await Tablet.findOne({ where: { id: req.params.id } });
+            if (TabletCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Tablet List',
+                    data: TabletCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
+
     async updateTabletData(req, res) {
 
         console.log(req.body)

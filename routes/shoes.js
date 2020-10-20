@@ -9,4 +9,8 @@ app.put('/', auth, ShoesController.updateShoesData);
 app.delete('/:id', auth, ShoesController.deleteShoesData);
 
 
+app.get('/:type', ShoesController.getShoesDatabyType);
+app.get('/id/:id', ShoesController.getShoesDatabyId);
+
+
 

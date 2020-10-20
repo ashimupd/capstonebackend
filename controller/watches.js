@@ -44,6 +44,52 @@ module.exports = {
         }
     },
 
+    async getWatchesDatabyType(req, res) {
+        try {
+            let WatchesCollection = await Watches.findAll({ where: { type: req.params.type } });
+            if (WatchesCollection && WatchesCollection.length > 0) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Watches List',
+                    data: WatchesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
+    async getWatchesDatabyId(req, res) {
+        try {
+            let WatchesCollection = await Watches.findOne({ where: { id: req.params.id } });
+            if (WatchesCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Watches List',
+                    data: WatchesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
     async updateWatchesData(req, res) {
 
 

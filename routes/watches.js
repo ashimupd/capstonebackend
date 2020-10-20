@@ -8,5 +8,7 @@ app.get('/', auth, WatchesController.getWatchesData);
 app.put('/', auth, WatchesController.updateWatchesData);
 app.delete('/:id', auth, WatchesController.deleteWatchesData);
 
+app.get('/:type',  WatchesController.getWatchesDatabyType);
+app.get('/id/:id',  WatchesController.getWatchesDatabyId);
 
 

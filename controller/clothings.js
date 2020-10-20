@@ -44,9 +44,54 @@ module.exports = {
         }
     },
 
-    async updateClothingsData(req, res) {
 
-        console.log(req.body)
+    async getClothingsDatabyType(req, res) {
+        try {
+            let ClothingsCollection = await Clothings.findAll({ where: { type: req.params.type } });
+            if (ClothingsCollection && ClothingsCollection.length > 0) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Clothings List',
+                    data: ClothingsCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
+    async getClothingsDatabyId(req, res) {
+        try {
+            let ClothingsCollection = await Clothings.findOne({ where: { id: req.params.id } });
+            if (ClothingsCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Clothings List',
+                    data: ClothingsCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
+    async updateClothingsData(req, res) {
 
         try {
             let ClothingsCollection = await Clothings.findOne({ where: { id: req.body.id } });

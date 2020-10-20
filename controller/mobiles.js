@@ -44,9 +44,32 @@ module.exports = {
         }
     },
 
+    async getMobilesDatabyId(req, res) {
+        try {
+            let MobilesCollection = await Mobiles.findOne({ where: { id: req.params.id } });
+            if (MobilesCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Mobiles List',
+                    data: MobilesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
     async updateMobilesData(req, res) {
 
-     
+
 
         try {
             let MobilesCollection = await Mobiles.findOne({ where: { id: req.body.id } });

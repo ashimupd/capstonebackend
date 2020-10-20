@@ -45,6 +45,54 @@ module.exports = {
         }
     },
 
+    async getGroceriesDatabyType(req, res) {
+        try {
+            let GroceriesCollection = await Groceries.findAll({where: {type: req.params.type}});
+            if (GroceriesCollection && GroceriesCollection.length > 0) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Groceries List',
+                    data: GroceriesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            console.log({ e })
+            res.status(500).send(e)
+        }
+    },
+
+    async getGroceriesDatabyId(req, res) {
+        try {
+            let GroceriesCollection = await Groceries.findOne({where: {id: req.params.id}});
+            if (GroceriesCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Groceries List',
+                    data: GroceriesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            console.log({ e })
+            res.status(500).send(e)
+        }
+    },
+
     async updateGroceriesData(req, res) {
 
         try {

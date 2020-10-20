@@ -4,9 +4,12 @@ const auth= require('../auth/auth')
 
 
 app.post('/', auth, tabletController.addTablet);
-app.get('/', auth, tabletController.getTabletData);
 app.put('/', auth, tabletController.updateTabletData);
 app.delete('/:id', auth, tabletController.deleteTabletData);
+
+
+app.get('/', tabletController.getTabletData);
+app.get('/id/:id', tabletController.getTabletDatabyId);
 
 
 

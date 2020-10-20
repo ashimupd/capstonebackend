@@ -44,6 +44,29 @@ module.exports = {
         }
     },
 
+    async getTVDatabyid(req, res) {
+        try {
+            let TVCollection = await TV.findOne({ where: { id: req.params.id } });
+            if (TVCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'TV List',
+                    data: TVCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
     async updateTVData(req, res) {
 
         console.log(req.body)

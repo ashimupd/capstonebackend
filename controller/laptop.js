@@ -39,10 +39,36 @@ module.exports = {
             }
         }
         catch (e) {
-            console.log({e})
+            console.log({ e })
             res.status(500).send(e)
         }
     },
+
+    async getLaptopDatabyId(req, res) {
+        try {
+            let LaptopCollection = await Laptop.findOne({ where: { id: req.params.id } });
+            if (LaptopCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Laptop List',
+                    data: LaptopCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            console.log({ e })
+            res.status(500).send(e)
+        }
+    },
+
+
 
     async updateLaptopData(req, res) {
 

@@ -4,9 +4,10 @@ const auth= require('../auth/auth')
 
 
 app.post('/', auth, mobilesController.addMobiles);
-app.get('/', auth, mobilesController.getMobilesData);
 app.put('/', auth, mobilesController.updateMobilesData);
 app.delete('/:id', auth, mobilesController.deleteMobilesData);
 
 
+app.get('/', mobilesController.getMobilesData);
+app.get('/id/:id', mobilesController.getMobilesDatabyId);
 

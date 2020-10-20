@@ -44,6 +44,53 @@ module.exports = {
         }
     },
 
+    async getShoesDatabyType(req, res) {
+        try {
+            let ShoesCollection = await Shoes.findAll({ where: { type: req.params.type } });
+            if (ShoesCollection && ShoesCollection.length > 0) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Shoes List',
+                    data: ShoesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
+    async getShoesDatabyId(req, res) {
+        try {
+            let ShoesCollection = await Shoes.findOne({ where: { id: req.params.id } });
+            if (ShoesCollection) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Shoes List',
+                    data: ShoesCollection
+                })
+            }
+
+            else {
+                res.status(200).json({
+                    success: false,
+                    message: 'No items in the list',
+                })
+            }
+        }
+        catch (e) {
+            res.status(500).send(e)
+        }
+    },
+
+
     async updateShoesData(req, res) {
 
 
@@ -65,7 +112,7 @@ module.exports = {
                         }
                     })
                 }
-                
+
                 Shoes.update(req.body, { where: { id: req.body.id } }).then(Shoes => {
                     res.status(200).json({
                         success: true,
