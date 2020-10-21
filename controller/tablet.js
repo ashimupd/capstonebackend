@@ -70,8 +70,6 @@ module.exports = {
 
     async updateTabletData(req, res) {
 
-        console.log(req.body)
-
         try {
             let TabletCollection = await Tablet.findOne({ where: { id: req.body.id } });
             if (TabletCollection) {
