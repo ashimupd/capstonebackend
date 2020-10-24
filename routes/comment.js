@@ -4,7 +4,7 @@ const auth= require('../auth/auth')
 
 
 app.post('/', auth,  commentController.addComment);
-app.get('/:producttype/:productid', auth,  commentController.getCommentsData);
+app.get('/:producttype/:productid',  commentController.getCommentsData);
 // app.get('/',   userController.signup);
 
 
