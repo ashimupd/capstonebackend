@@ -1,5 +1,5 @@
 const app = module.exports = require('express')();
-const WatchesController= require('../controller/Watches');
+const WatchesController= require('../controller/watches');
 const auth= require('../auth/auth')
 
 

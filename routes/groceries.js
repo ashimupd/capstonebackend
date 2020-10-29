@@ -1,5 +1,5 @@
 const app = module.exports = require('express')();
-const GroceriesController = require('../controller/Groceries');
+const GroceriesController = require('../controller/groceries');
 const auth = require('../auth/auth')
 
 

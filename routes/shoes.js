@@ -1,5 +1,5 @@
 const app = module.exports = require('express')();
-const ShoesController= require('../controller/Shoes');
+const ShoesController= require('../controller/shoes');
 const auth= require('../auth/auth')
 
 
