@@ -117,14 +117,6 @@ module.exports = {
             let MobilesCollection = await Mobiles.findOne({ where: { id: req.params.id } });
             if (MobilesCollection) {
 
-                fs.unlink('./upload/images/' + MobilesCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + MobilesCollection.image + 'deleted')
-                    }
-                })
 
                 Mobiles.destroy({ where: { id: req.params.id } }).then(Mobiles => {
                     res.status(200).json({

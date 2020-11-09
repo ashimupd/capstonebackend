@@ -120,14 +120,6 @@ module.exports = {
             let LaptopCollection = await Laptop.findOne({ where: { id: req.params.id } });
             if (LaptopCollection) {
 
-                fs.unlink('./upload/images/' + LaptopCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + LaptopCollection.image + 'deleted')
-                    }
-                })
 
                 Laptop.destroy({ where: { id: req.params.id } }).then(Laptop => {
                     res.status(200).json({

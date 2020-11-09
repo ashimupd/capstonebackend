@@ -69,8 +69,6 @@ module.exports = {
 
     async updateTVData(req, res) {
 
-        console.log(req.body)
-
         try {
             let TVCollection = await TV.findOne({ where: { id: req.body.id } });
             if (TVCollection) {
@@ -116,15 +114,6 @@ module.exports = {
         try {
             let TVCollection = await TV.findOne({ where: { id: req.params.id } });
             if (TVCollection) {
-
-                fs.unlink('./upload/images/' + TVCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + TVCollection.image + 'deleted')
-                    }
-                })
 
                 TV.destroy({ where: { id: req.params.id } }).then(TV => {
                     res.status(200).json({

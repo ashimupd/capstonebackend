@@ -116,15 +116,6 @@ module.exports = {
             let TabletCollection = await Tablet.findOne({ where: { id: req.params.id } });
             if (TabletCollection) {
 
-                fs.unlink('./upload/images/' + TabletCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + TabletCollection.image + 'deleted')
-                    }
-                })
-
                 Tablet.destroy({ where: { id: req.params.id } }).then(Tablet => {
                     res.status(200).json({
                         success: true,

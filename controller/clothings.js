@@ -139,15 +139,6 @@ module.exports = {
             let ClothingsCollection = await Clothings.findOne({ where: { id: req.params.id } });
             if (ClothingsCollection) {
 
-                fs.unlink('./upload/images/' + ClothingsCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + ClothingsCollection.image + 'deleted')
-                    }
-                })
-
                 Clothings.destroy({ where: { id: req.params.id } }).then(Clothings => {
                     res.status(200).json({
                         success: true,

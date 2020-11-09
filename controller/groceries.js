@@ -141,23 +141,6 @@ module.exports = {
             let GroceriesCollection = await Groceries.findOne({ where: { id: req.params.id } });
             if (GroceriesCollection) {
 
-                if (GroceriesCollection.image === req.body.image) {
-                    // do nothing 
-                }
-
-                else {
-                    fs.unlink('./upload/images/' + GroceriesCollection.image, (err) => {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            console.log('Image ' + GroceriesCollection.image + 'deleted')
-                        }
-                    })
-                }
-
-
-
                 Groceries.destroy({ where: { id: req.params.id } }).then(Groceries => {
                     res.status(200).json({
                         success: true,

@@ -139,15 +139,6 @@ module.exports = {
             let WatchesCollection = await Watches.findOne({ where: { id: req.params.id } });
             if (WatchesCollection) {
 
-                fs.unlink('./upload/images/' + WatchesCollection.image, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('Image ' + WatchesCollection.image + 'deleted')
-                    }
-                })
-
                 Watches.destroy({ where: { id: req.params.id } }).then(Watches => {
                     res.status(200).json({
                         success: true,
